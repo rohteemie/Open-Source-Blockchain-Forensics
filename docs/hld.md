@@ -65,27 +65,32 @@ Provide a clear, modular system architecture for the Phase 1 MVP: Bitcoin-only a
   - outputs (list of address + amount)
   - timestamp (string or int)
 
-## 8. HLD Diagram (Text)
+## 8. Diagrams
+
+- High-level architecture: docs/diagrams/hld-architecture.png
+- System context and data flow: docs/diagrams/system-design.png
+
+## 9. HLD Diagram (Text)
 
 [User] -> [CLI] -> [Provider Adapter] -> [Normalizer] -> [CIOH Clustering] -> [Scorer] -> [JSON Output]
 
-## 9. Key Design Decisions
+## 10. Key Design Decisions
 - CIOH chosen for MVP because it is simple, well-known, and provides meaningful clustering without complex heuristics.
 - Provider adapter is abstracted to support API or node RPC without changing core logic.
 - No graph database in Phase 1 to reduce setup complexity.
 
-## 10. Risks and Mitigations
+## 11. Risks and Mitigations
 - Risk: API rate limits.
   - Mitigation: Pluggable provider adapter for alternative sources.
 - Risk: Over-clustering with CIOH.
   - Mitigation: Clear confidence scores and documentation of limitations.
 
-## 11. Non-Functional Considerations
+## 12. Non-Functional Considerations
 - Logging should be minimal and informative.
 - Errors should be actionable.
 - Tests focus on deterministic outputs.
 
-## 12. Future Extensions (Post-MVP)
+## 13. Future Extensions (Post-MVP)
 - Change address detection.
 - Graph database integration.
 - Ethereum and cross-chain analysis.

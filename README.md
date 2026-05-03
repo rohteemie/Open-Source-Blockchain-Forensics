@@ -337,3 +337,6 @@ If you use this tool in your research, please cite:
 - Requirements analysis: [docs/requirements.md](docs/requirements.md)
 - MVP definition: [docs/mvp.md](docs/mvp.md)
 - High-level design (HLD): [docs/hld.md](docs/hld.md)
+- Architecture overview: [docs/architecture.md](docs/architecture.md)
+- HLD diagram (PNG): [docs/diagrams/hld-architecture.png](docs/diagrams/hld-architecture.png)
+- System design diagram (PNG): [docs/diagrams/system-design.png](docs/diagrams/system-design.png)
