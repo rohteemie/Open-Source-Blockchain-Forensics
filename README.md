@@ -106,7 +106,7 @@ This tool addresses these challenges by implementing state-of-the-art clustering
 ### Technology Stack
 
 - **Language**: Python 3.8+
-- **Blockchain Interaction**: 
+- **Blockchain Interaction**:
   - Bitcoin: `bitcoinlib`, `bitcoin-rpc`
   - Ethereum: `web3.py`, `eth-brownie`
 - **Graph Database**: Neo4j for relationship storage and querying
@@ -331,3 +331,9 @@ If you use this tool in your research, please cite:
 **Status**: 🚧 This project is under active development. Contributions and feedback are welcome!
 
 **Last Updated**: October 2025
+
+## 📌 MVP and Requirements
+
+- Requirements analysis: [docs/requirements.md](docs/requirements.md)
+- MVP definition: [docs/mvp.md](docs/mvp.md)
+- High-level design (HLD): [docs/hld.md](docs/hld.md)
