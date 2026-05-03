@@ -184,11 +184,11 @@ for cluster_id, addresses in clusters.items():
 # Analyze a Bitcoin address
 python -m blockchain_forensics analyze-btc --address 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
 
-# Trace transaction flow
-python -m blockchain_forensics trace --txid <transaction_id> --depth 3
+# Trace transaction flow (planned)
+# python -m blockchain_forensics trace --txid <transaction_id> --depth 3
 
-# Generate report
-python -m blockchain_forensics report --cluster-id <cluster_id> --output report.pdf
+# Generate report (planned)
+# python -m blockchain_forensics report --cluster-id <cluster_id> --output report.pdf
 ```
 
 ### API Usage
@@ -340,3 +340,5 @@ If you use this tool in your research, please cite:
 - Architecture overview: [docs/architecture.md](docs/architecture.md)
 - HLD diagram (PNG): [docs/diagrams/hld-architecture.png](docs/diagrams/hld-architecture.png)
 - System design diagram (PNG): [docs/diagrams/system-design.png](docs/diagrams/system-design.png)
+- Phase 1 implementation: [docs/phase1-implementation.md](docs/phase1-implementation.md)
+- Phase 1 usage: [docs/phase1-usage.md](docs/phase1-usage.md)

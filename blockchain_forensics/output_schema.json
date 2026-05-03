@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Phase 1 Output",
+  "type": "object",
+  "required": ["address", "provider", "generated_at", "summary", "clusters"],
+  "properties": {
+    "address": {"type": "string"},
+    "provider": {"type": "string"},
+    "generated_at": {"type": "string"},
+    "summary": {
+      "type": "object",
+      "required": ["cluster_count", "address_count", "tx_count"],
+      "properties": {
+        "cluster_count": {"type": "integer"},
+        "address_count": {"type": "integer"},
+        "tx_count": {"type": "integer"}
+      }
+    },
+    "clusters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["cluster_id", "addresses", "confidence", "evidence_txs"],
+        "properties": {
+          "cluster_id": {"type": "string"},
+          "addresses": {"type": "array", "items": {"type": "string"}},
+          "confidence": {"type": "number"},
+          "evidence_txs": {"type": "integer"}
+        }
+      }
+    }
+  }
+}
