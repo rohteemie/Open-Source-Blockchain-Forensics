@@ -37,7 +37,7 @@ def _build_parser() -> argparse.ArgumentParser:
         "--max-pages",
         type=int,
         default=5,
-        help="Limit Blockstream pagination pages (default: 5)",
+        help="Limit Blockstream pagination pages (default: 5; ignored for bitcoin-rpc)",
     )
     analyze.add_argument(
         "--rpc-url",
@@ -84,6 +84,7 @@ def _run_analyze(
             provider = BitcoinRpcProvider(
                 rpc_url=rpc_url, rpc_user=rpc_user, rpc_password=rpc_password
             )
+            max_pages = None
         else:
             provider = BlockstreamProvider(base_url=base_url)
 

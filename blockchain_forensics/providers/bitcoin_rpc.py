@@ -2,6 +2,7 @@
 
 import base64
 import json
+from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 from typing import Dict, List, Optional
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit
@@ -69,7 +70,10 @@ class BitcoinRpcProvider:
         except URLError as exc:
             raise RuntimeError("RPC error: network failure") from exc
 
-        data = json.loads(raw)
+        try:
+            data = json.loads(raw)
+        except json.JSONDecodeError as exc:
+            raise RuntimeError("RPC error: invalid JSON response") from exc
         if data.get("error"):
             raise RuntimeError(f"RPC error: {data['error']}")
         return data.get("result")
@@ -134,9 +138,20 @@ class BitcoinRpcProvider:
             if isinstance(addresses, list) and addresses:
                 address = addresses[0]
         value_btc = vout.get("value")
-        if address and isinstance(value_btc, (int, float)):
+        if address and value_btc is not None:
+            try:
+                value_sats = self._btc_to_sats(value_btc)
+            except (InvalidOperation, ValueError, TypeError):
+                return None
             return {
                 "scriptpubkey_address": address,
-                "value": int(round(value_btc * 100_000_000)),
+                "value": value_sats,
             }
         return None
+
+    @staticmethod
+    def _btc_to_sats(value_btc: object) -> int:
+        decimal_value = Decimal(str(value_btc))
+        return int(
+            (decimal_value * Decimal("100000000")).to_integral_value(rounding=ROUND_HALF_UP)
+        )

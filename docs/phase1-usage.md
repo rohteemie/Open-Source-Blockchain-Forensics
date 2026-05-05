@@ -14,7 +14,8 @@ python3 -m blockchain_forensics analyze-btc --address <addr> --max-pages 3
 
 ## Default behavior
 
-If you omit --max-pages, the CLI defaults to 5 pages to avoid long fetches.
+If you omit --max-pages, the CLI defaults to 5 pages to avoid long fetches when using
+the Blockstream provider. The flag is ignored when using `--provider bitcoin-rpc`.
 
 ## Disable progress output
 

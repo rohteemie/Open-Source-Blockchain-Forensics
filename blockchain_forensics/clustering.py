@@ -56,7 +56,7 @@ def cluster_cioh(transactions: List[Transaction]) -> Tuple[Dict[str, List[str]],
         for a, b in _pairwise(addresses):
             uf.union(a, b)
 
-        # Increment evidence once per transaction for the cluster root.
+        # Increment evidence once per transaction for the cluster root at this time.
         root = uf.find(addresses[0])
         evidence[root] = evidence.get(root, 0) + 1
 
@@ -68,4 +68,9 @@ def cluster_cioh(transactions: List[Transaction]) -> Tuple[Dict[str, List[str]],
     for members in clusters.values():
         members.sort()
 
-    return clusters, evidence
+    evidence_final: Dict[str, int] = {}
+    for root, count in evidence.items():
+        final_root = uf.find(root)
+        evidence_final[final_root] = evidence_final.get(final_root, 0) + count
+
+    return clusters, evidence_final

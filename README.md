@@ -187,6 +187,8 @@ python -m blockchain_forensics analyze-btc --address 1A1zP1eP5QGefi2DMPTfTL5SLmv
 # Limit pages to avoid long fetches
 python -m blockchain_forensics analyze-btc --address <addr> --max-pages 2
 
+# Note: --max-pages only applies to Blockstream; it is ignored for bitcoin-rpc.
+
 # Analyze using Bitcoin Core RPC
 python -m blockchain_forensics analyze-btc --address <addr> --provider bitcoin-rpc --rpc-url http://127.0.0.1:8332
 
@@ -339,7 +341,7 @@ If you use this tool in your research, please cite:
 
 **Status**: 🚧 This project is under active development. Contributions and feedback are welcome!
 
-**Last Updated**: October 2025
+**Last Updated**: May 2026
 
 ## 📌 MVP and Requirements
 
