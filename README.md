@@ -106,7 +106,7 @@ This tool addresses these challenges by implementing state-of-the-art clustering
 ### Technology Stack
 
 - **Language**: Python 3.8+
-- **Blockchain Interaction**: 
+- **Blockchain Interaction**:
   - Bitcoin: `bitcoinlib`, `bitcoin-rpc`
   - Ethereum: `web3.py`, `eth-brownie`
 - **Graph Database**: Neo4j for relationship storage and querying
@@ -184,11 +184,22 @@ for cluster_id, addresses in clusters.items():
 # Analyze a Bitcoin address
 python -m blockchain_forensics analyze-btc --address 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
 
-# Trace transaction flow
-python -m blockchain_forensics trace --txid <transaction_id> --depth 3
+# Limit pages to avoid long fetches
+python -m blockchain_forensics analyze-btc --address <addr> --max-pages 2
 
-# Generate report
-python -m blockchain_forensics report --cluster-id <cluster_id> --output report.pdf
+# Note: --max-pages only applies to Blockstream; it is ignored for bitcoin-rpc.
+
+# Analyze using Bitcoin Core RPC
+python -m blockchain_forensics analyze-btc --address <addr> --provider bitcoin-rpc --rpc-url http://127.0.0.1:8332
+
+# Generate a CSV report
+python -m blockchain_forensics analyze-btc --address <addr> --report csv
+
+# Trace transaction flow (planned)
+# python -m blockchain_forensics trace --txid <transaction_id> --depth 3
+
+# Generate report (planned)
+# python -m blockchain_forensics report --cluster-id <cluster_id> --output report.pdf
 ```
 
 ### API Usage
@@ -330,4 +341,23 @@ If you use this tool in your research, please cite:
 
 **Status**: 🚧 This project is under active development. Contributions and feedback are welcome!
 
-**Last Updated**: October 2025
+**Last Updated**: May 2026
+
+## 📌 MVP and Requirements
+
+- Requirements analysis: [docs/requirements.md](docs/requirements.md)
+- MVP definition: [docs/mvp.md](docs/mvp.md)
+- High-level design (HLD): [docs/hld.md](docs/hld.md)
+- Architecture overview: [docs/architecture.md](docs/architecture.md)
+- HLD diagram (PNG): [docs/diagrams/hld-architecture.png](docs/diagrams/hld-architecture.png)
+- System design diagram (PNG): [docs/diagrams/system-design.png](docs/diagrams/system-design.png)
+- Phase 1 implementation: [docs/phase1-implementation.md](docs/phase1-implementation.md)
+- Phase 1 usage: [docs/phase1-usage.md](docs/phase1-usage.md)
+
+## 🌐 GitHub Pages
+
+This project ships a GitHub Pages landing page in the `docs/` folder. To enable it:
+
+1. Go to **Settings → Pages**.
+2. Set **Source** to `Deploy from a branch`.
+3. Select the `main` branch and `/docs` folder, then save.

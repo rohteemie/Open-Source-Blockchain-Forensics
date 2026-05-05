@@ -1,0 +1,47 @@
+# Phase 1 Usage
+
+## Analyze a Bitcoin address
+
+```bash
+python3 -m blockchain_forensics analyze-btc --address <addr> --out output.json
+```
+
+## Use Blockstream pagination
+
+```bash
+python3 -m blockchain_forensics analyze-btc --address <addr> --max-pages 3
+```
+
+## Default behavior
+
+If you omit --max-pages, the CLI defaults to 5 pages to avoid long fetches when using
+the Blockstream provider. The flag is ignored when using `--provider bitcoin-rpc`.
+
+## Disable progress output
+
+```bash
+python3 -m blockchain_forensics analyze-btc --address <addr> --no-progress
+```
+
+## Use Bitcoin Core RPC
+
+```bash
+python3 -m blockchain_forensics analyze-btc \
+	--address <addr> \
+	--provider bitcoin-rpc \
+	--rpc-url http://127.0.0.1:8332 \
+	--rpc-user <user> \
+	--rpc-password <password>
+```
+
+## Generate a report
+
+```bash
+python3 -m blockchain_forensics analyze-btc \
+	--address <addr> \
+	--report csv
+```
+
+## Output
+- JSON file containing clusters, confidence scores, summary metadata, and run metadata.
+- Optional CSV or text report with a summarized cluster view.

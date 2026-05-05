@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Phase 1 Output",
+  "type": "object",
+  "required": ["address", "provider", "generated_at", "summary", "clusters"],
+  "properties": {
+    "address": {"type": "string"},
+    "provider": {"type": "string"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "meta": {
+      "type": "object",
+      "required": ["schema_version", "tool", "provider", "params"],
+      "properties": {
+        "schema_version": {"type": "string"},
+        "tool": {"type": "string"},
+        "provider": {"type": "string"},
+        "params": {
+          "type": "object",
+          "properties": {
+            "max_pages": {"type": ["integer", "null"]},
+            "base_url": {"type": ["string", "null"]},
+            "rpc_url": {"type": ["string", "null"]}
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": ["cluster_count", "address_count", "tx_count"],
+      "properties": {
+        "cluster_count": {"type": "integer", "minimum": 0},
+        "address_count": {"type": "integer", "minimum": 0},
+        "tx_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "clusters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["cluster_id", "addresses", "confidence", "evidence_txs"],
+        "properties": {
+          "cluster_id": {"type": "string"},
+          "addresses": {"type": "array", "items": {"type": "string"}},
+          "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+          "evidence_txs": {"type": "integer", "minimum": 0}
+        }
+      }
+    }
+  }
+}
