@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Open-Source Blockchain Forensics</title>
+    <meta
+      name="description"
+      content="Open-source Bitcoin forensics tooling for address clustering, transaction analysis, and transparent research workflows."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="noise"></div>
+    <header class="hero">
+      <nav class="nav">
+        <div class="brand">Open-Source Blockchain Forensics</div>
+        <div class="nav-links">
+          <a href="#overview">Overview</a>
+          <a href="#mvp">MVP</a>
+          <a href="#get-started">Get Started</a>
+          <a href="#resources">Resources</a>
+        </div>
+      </nav>
+
+      <div class="hero-content">
+        <div class="hero-text">
+          <p class="eyebrow">Bitcoin Forensics · Open Source · Research Ready</p>
+          <h1>Trace transaction patterns with transparent, auditable tooling.</h1>
+          <p class="lead">
+            A focused Bitcoin analytics toolkit that clusters addresses using proven heuristics,
+            explains its evidence, and keeps the workflow simple for investigators, researchers,
+            and security teams.
+          </p>
+          <div class="cta-row">
+            <a class="btn primary" href="https://github.com/rohteemie/Open-Source-Blockchain-Forensics">
+              View on GitHub
+            </a>
+            <a class="btn ghost" href="#get-started">Run the MVP</a>
+          </div>
+          <div class="hero-metrics">
+            <div>
+              <span class="metric">Bitcoin MVP</span>
+              <span class="metric-label">Phase 1 scope</span>
+            </div>
+            <div>
+              <span class="metric">CIOH</span>
+              <span class="metric-label">Clustering heuristic</span>
+            </div>
+            <div>
+              <span class="metric">JSON + CSV</span>
+              <span class="metric-label">Outputs</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="card-header">Sample Output</div>
+          <pre class="card-body">{
+  "summary": {
+    "cluster_count": 3,
+    "address_count": 14,
+    "tx_count": 120
+  },
+  "clusters": [
+    {
+      "cluster_id": "cluster-1",
+      "confidence": 0.6,
+      "evidence_txs": 3
+    }
+  ]
+}</pre>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="overview" class="section">
+        <div class="section-title">
+          <h2>Project Overview</h2>
+          <p>
+            Open-Source Blockchain Forensics delivers a practical pipeline for Bitcoin
+            address clustering and transaction analysis. It focuses on transparency,
+            reproducibility, and a clean interface that can scale to advanced analytics
+            later.
+          </p>
+        </div>
+        <div class="grid two">
+          <div class="panel">
+            <h3>Why it exists</h3>
+            <p>
+              Blockchain transparency is powerful, but pseudonymous addresses hide
+              real-world entities. This project gives investigators and researchers
+              a clear way to explore transaction patterns while keeping the process
+              auditable and ethical.
+            </p>
+          </div>
+          <div class="panel">
+            <h3>Who it helps</h3>
+            <ul>
+              <li>Compliance and risk teams validating exposure.</li>
+              <li>Researchers studying network behavior.</li>
+              <li>Security teams tracing suspicious flows.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="mvp" class="section highlight">
+        <div class="section-title">
+          <h2>MVP Capabilities (Phase 1)</h2>
+          <p>Focused, usable features that ship real value today.</p>
+        </div>
+        <div class="grid three">
+          <div class="panel">
+            <h3>Bitcoin Address Analysis</h3>
+            <p>Fetch transactions, normalize data, and build clusters end-to-end.</p>
+          </div>
+          <div class="panel">
+            <h3>Transparent Clustering</h3>
+            <p>CIOH heuristic with evidence counts and bounded confidence scores.</p>
+          </div>
+          <div class="panel">
+            <h3>Usable Outputs</h3>
+            <p>JSON outputs for automation, plus optional CSV/text reports.</p>
+          </div>
+        </div>
+        <div class="callout">
+          <h4>Core flow</h4>
+          <p>Fetch → Normalize → Cluster → Score → Export</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-title">
+          <h2>How it works</h2>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <span class="step-num">01</span>
+            <div>
+              <h3>Collect</h3>
+              <p>Retrieve transactions from Blockstream or your own Bitcoin Core node.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">02</span>
+            <div>
+              <h3>Normalize</h3>
+              <p>Convert raw transaction data into a consistent internal schema.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">03</span>
+            <div>
+              <h3>Cluster</h3>
+              <p>Apply CIOH to link addresses that co-spend in the same transaction.</p>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">04</span>
+            <div>
+              <h3>Report</h3>
+              <p>Export JSON for analysis and optional CSV/text reports for quick review.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="get-started" class="section">
+        <div class="section-title">
+          <h2>Get Started</h2>
+          <p>Run the MVP CLI in minutes.</p>
+        </div>
+        <div class="code-card">
+          <pre>python3 -m blockchain_forensics analyze-btc --address &lt;addr&gt; --out output.json</pre>
+          <div class="code-meta">
+            <span>Default provider: Blockstream</span>
+            <span>Default pagination: 5 pages</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section ethics">
+        <div class="section-title">
+          <h2>Ethics and Responsible Use</h2>
+          <p>
+            This project is intended for lawful investigations, compliance, and research.
+            Users are responsible for adhering to applicable privacy laws and regulations.
+          </p>
+        </div>
+      </section>
+
+      <section id="resources" class="section">
+        <div class="section-title">
+          <h2>Resources</h2>
+          <p>Everything you need to explore the project.</p>
+        </div>
+        <div class="grid three">
+          <a class="link-card" href="https://github.com/rohteemie/Open-Source-Blockchain-Forensics">
+            GitHub Repository
+          </a>
+          <a class="link-card" href="https://github.com/rohteemie/Open-Source-Blockchain-Forensics#readme">
+            README Overview
+          </a>
+          <a class="link-card" href="https://github.com/rohteemie/Open-Source-Blockchain-Forensics/blob/main/docs/requirements.md">
+            Requirements
+          </a>
+          <a class="link-card" href="https://github.com/rohteemie/Open-Source-Blockchain-Forensics/blob/main/docs/mvp.md">
+            MVP Definition
+          </a>
+          <a class="link-card" href="https://github.com/rohteemie/Open-Source-Blockchain-Forensics/blob/main/docs/phase1-usage.md">
+            Phase 1 Usage
+          </a>
+          <a class="link-card" href="mailto:rotimijournal@outlook.com">Contact</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>Open-Source Blockchain Forensics · MIT License</span>
+      <span>Last updated: May 2026</span>
+    </footer>
+  </body>
+</html>
