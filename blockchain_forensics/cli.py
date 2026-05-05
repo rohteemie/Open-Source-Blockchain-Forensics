@@ -95,6 +95,16 @@ def _run_analyze(
         clusters, evidence = cluster_cioh(transactions)
         scores = score_clusters(evidence)
 
+        metadata = {
+            "schema_version": "1.0",
+            "tool": "blockchain-forensics",
+            "provider": provider_name,
+            "params": {
+                "max_pages": max_pages,
+                "base_url": base_url if provider_name == "blockstream" else None,
+                "rpc_url": rpc_url if provider_name == "bitcoin-rpc" else None,
+            },
+        }
         payload = build_output(
             address=address,
             provider=provider_name,
@@ -102,6 +112,7 @@ def _run_analyze(
             evidence=evidence,
             scores=scores,
             tx_count=len(transactions),
+            metadata=metadata,
         )
         write_json(out_path, payload)
 

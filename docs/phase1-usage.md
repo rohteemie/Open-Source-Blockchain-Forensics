@@ -42,5 +42,5 @@ python3 -m blockchain_forensics analyze-btc \
 ```
 
 ## Output
-- JSON file containing clusters, confidence scores, and summary metadata.
+- JSON file containing clusters, confidence scores, summary metadata, and run metadata.
 - Optional CSV or text report with a summarized cluster view.

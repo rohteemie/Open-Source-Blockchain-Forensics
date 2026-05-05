@@ -13,6 +13,7 @@ def build_output(
     evidence: Dict[str, int],
     scores: Dict[str, float],
     tx_count: int,
+    metadata: Optional[dict] = None,
 ) -> dict:
     ordered = sorted(
         ((root, members) for root, members in clusters.items()),
@@ -41,6 +42,8 @@ def build_output(
         },
         "clusters": cluster_list,
     }
+    if metadata:
+        payload["meta"] = metadata
     return payload
 
 
