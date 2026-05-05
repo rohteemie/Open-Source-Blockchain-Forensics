@@ -12,6 +12,12 @@ python3 -m blockchain_forensics analyze-btc --address <addr> --out output.json
 python3 -m blockchain_forensics analyze-btc --address <addr> --max-pages 3
 ```
 
+## Disable progress output
+
+```bash
+python3 -m blockchain_forensics analyze-btc --address <addr> --no-progress
+```
+
 ## Use Bitcoin Core RPC
 
 ```bash

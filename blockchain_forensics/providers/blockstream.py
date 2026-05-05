@@ -12,7 +12,12 @@ class BlockstreamProvider:
     def __init__(self, base_url: str = "https://blockstream.info/api") -> None:
         self.base_url = base_url.rstrip("/")
 
-    def fetch_address_txs(self, address: str, max_pages: Optional[int] = None) -> List[dict]:
+    def fetch_address_txs(
+        self,
+        address: str,
+        max_pages: Optional[int] = None,
+        progress: bool = False,
+    ) -> List[dict]:
         """Fetch full address history using Blockstream pagination."""
         all_txs: List[dict] = []
         page = 0
@@ -32,6 +37,10 @@ class BlockstreamProvider:
                 break
 
             all_txs.extend(data)
+            if progress:
+                print(
+                    f"Fetched page {page + 1} ({len(data)} txs), total {len(all_txs)}"
+                )
             new_last_txid = data[-1].get("txid")
             if not new_last_txid or new_last_txid == last_txid:
                 break

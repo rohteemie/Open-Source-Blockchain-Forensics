@@ -184,6 +184,9 @@ for cluster_id, addresses in clusters.items():
 # Analyze a Bitcoin address
 python -m blockchain_forensics analyze-btc --address 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
 
+# Limit pages to avoid long fetches
+python -m blockchain_forensics analyze-btc --address <addr> --max-pages 2
+
 # Analyze using Bitcoin Core RPC
 python -m blockchain_forensics analyze-btc --address <addr> --provider bitcoin-rpc --rpc-url http://127.0.0.1:8332
 

@@ -23,7 +23,12 @@ class BitcoinRpcProvider:
         self.rpc_password = rpc_password
         self.timeout = timeout
 
-    def fetch_address_txs(self, address: str, max_pages: Optional[int] = None) -> List[dict]:
+    def fetch_address_txs(
+        self,
+        address: str,
+        max_pages: Optional[int] = None,
+        progress: bool = False,
+    ) -> List[dict]:
         """Fetch transactions touching the address using RPC.
 
         Note: This relies on scantxoutset and returns transactions for current
@@ -43,6 +48,8 @@ class BitcoinRpcProvider:
             raw_tx = self._rpc("getrawtransaction", [txid, True])
             if isinstance(raw_tx, dict):
                 txs.append(self._to_blockstream_shape(raw_tx, prev_cache))
+                if progress:
+                    print(f"Fetched RPC tx {len(txs)}")
 
         return txs
 

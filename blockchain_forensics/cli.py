@@ -57,6 +57,11 @@ def _build_parser() -> argparse.ArgumentParser:
         default=None,
         help="Report output path (default derived from JSON output)",
     )
+    analyze.add_argument(
+        "--no-progress",
+        action="store_true",
+        help="Disable pagination progress output",
+    )
 
     return parser
 
@@ -72,13 +77,16 @@ def _run_analyze(
     rpc_password: Optional[str],
     report: Optional[str],
     report_out: Optional[str],
+    no_progress: bool,
 ) -> int:
     if provider_name == "bitcoin-rpc":
         provider = BitcoinRpcProvider(rpc_url=rpc_url, rpc_user=rpc_user, rpc_password=rpc_password)
     else:
         provider = BlockstreamProvider(base_url=base_url)
 
-    raw_txs = provider.fetch_address_txs(address, max_pages=max_pages)
+    raw_txs = provider.fetch_address_txs(
+        address, max_pages=max_pages, progress=not no_progress
+    )
     transactions = normalize_blockstream_txs(raw_txs)
 
     clusters, evidence = cluster_cioh(transactions)
@@ -125,6 +133,7 @@ def main(argv: Optional[list] = None) -> int:
             args.rpc_password,
             args.report,
             args.report_out,
+            args.no_progress,
         )
 
     parser.error("Unknown command")
