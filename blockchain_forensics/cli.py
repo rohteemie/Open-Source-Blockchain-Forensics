@@ -36,8 +36,8 @@ def _build_parser() -> argparse.ArgumentParser:
     analyze.add_argument(
         "--max-pages",
         type=int,
-        default=None,
-        help="Limit Blockstream pagination pages (default: full history)",
+        default=5,
+        help="Limit Blockstream pagination pages (default: 5)",
     )
     analyze.add_argument(
         "--rpc-url",
