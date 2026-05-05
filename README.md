@@ -184,6 +184,12 @@ for cluster_id, addresses in clusters.items():
 # Analyze a Bitcoin address
 python -m blockchain_forensics analyze-btc --address 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
 
+# Analyze using Bitcoin Core RPC
+python -m blockchain_forensics analyze-btc --address <addr> --provider bitcoin-rpc --rpc-url http://127.0.0.1:8332
+
+# Generate a CSV report
+python -m blockchain_forensics analyze-btc --address <addr> --report csv
+
 # Trace transaction flow (planned)
 # python -m blockchain_forensics trace --txid <transaction_id> --depth 3
 

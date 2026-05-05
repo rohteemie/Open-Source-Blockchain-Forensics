@@ -6,7 +6,7 @@ from blockchain_forensics.models import Transaction, TxIO
 
 
 def normalize_blockstream_txs(raw_txs: List[dict]) -> List[Transaction]:
-    """Normalize Blockstream API responses to Transaction objects."""
+    """Normalize provider responses shaped like Blockstream transactions."""
     normalized: List[Transaction] = []
     for raw in raw_txs:
         txid = raw.get("txid")
