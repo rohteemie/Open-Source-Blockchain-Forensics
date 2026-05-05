@@ -79,47 +79,74 @@ def _run_analyze(
     report_out: Optional[str],
     no_progress: bool,
 ) -> int:
-    if provider_name == "bitcoin-rpc":
-        provider = BitcoinRpcProvider(rpc_url=rpc_url, rpc_user=rpc_user, rpc_password=rpc_password)
+    try:
+        if provider_name == "bitcoin-rpc":
+            provider = BitcoinRpcProvider(
+                rpc_url=rpc_url, rpc_user=rpc_user, rpc_password=rpc_password
+            )
+        else:
+            provider = BlockstreamProvider(base_url=base_url)
+
+        raw_txs = provider.fetch_address_txs(
+            address, max_pages=max_pages, progress=not no_progress
+        )
+        transactions = normalize_blockstream_txs(raw_txs)
+
+        clusters, evidence = cluster_cioh(transactions)
+        scores = score_clusters(evidence)
+
+        payload = build_output(
+            address=address,
+            provider=provider_name,
+            clusters=clusters,
+            evidence=evidence,
+            scores=scores,
+            tx_count=len(transactions),
+        )
+        write_json(out_path, payload)
+
+        if report:
+            report_path = report_out or derive_report_path(out_path, report)
+            if report_path:
+                write_report(report_path, payload, report)
+                print(f"Saved report to {report_path}")
+
+        print(f"Saved results to {out_path}")
+        print(
+            f"Clusters: {payload['summary']['cluster_count']} | "
+            f"Addresses: {payload['summary']['address_count']} | "
+            f"Transactions: {payload['summary']['tx_count']}"
+        )
+        return 0
+    except RuntimeError as exc:
+        print(f"Error: {exc}")
+        return 1
+
+
+def _validate_args(args: argparse.Namespace, parser: argparse.ArgumentParser) -> None:
+    if not args.address or not args.address.strip():
+        parser.error("--address must be a non-empty string")
+
+    if args.max_pages is not None and args.max_pages < 1:
+        parser.error("--max-pages must be >= 1")
+
+    if args.report_out and not args.report:
+        parser.error("--report-out requires --report")
+
+    if args.provider == "bitcoin-rpc":
+        if not args.rpc_url or not args.rpc_url.strip():
+            parser.error("--rpc-url is required for bitcoin-rpc")
     else:
-        provider = BlockstreamProvider(base_url=base_url)
-
-    raw_txs = provider.fetch_address_txs(
-        address, max_pages=max_pages, progress=not no_progress
-    )
-    transactions = normalize_blockstream_txs(raw_txs)
-
-    clusters, evidence = cluster_cioh(transactions)
-    scores = score_clusters(evidence)
-
-    payload = build_output(
-        address=address,
-        provider=provider_name,
-        clusters=clusters,
-        evidence=evidence,
-        scores=scores,
-        tx_count=len(transactions),
-    )
-    write_json(out_path, payload)
-
-    if report:
-        report_path = report_out or derive_report_path(out_path, report)
-        if report_path:
-            write_report(report_path, payload, report)
-            print(f"Saved report to {report_path}")
-
-    print(f"Saved results to {out_path}")
-    print(
-        f"Clusters: {payload['summary']['cluster_count']} | "
-        f"Addresses: {payload['summary']['address_count']} | "
-        f"Transactions: {payload['summary']['tx_count']}"
-    )
-    return 0
+        if not args.base_url or not args.base_url.strip():
+            parser.error("--base-url must be a non-empty URL")
+        if not args.base_url.startswith("http://") and not args.base_url.startswith("https://"):
+            parser.error("--base-url must start with http:// or https://")
 
 
 def main(argv: Optional[list] = None) -> int:
     parser = _build_parser()
     args = parser.parse_args(argv)
+    _validate_args(args, parser)
 
     if args.command == "analyze-btc":
         return _run_analyze(
