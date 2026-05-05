@@ -351,3 +351,11 @@ If you use this tool in your research, please cite:
 - System design diagram (PNG): [docs/diagrams/system-design.png](docs/diagrams/system-design.png)
 - Phase 1 implementation: [docs/phase1-implementation.md](docs/phase1-implementation.md)
 - Phase 1 usage: [docs/phase1-usage.md](docs/phase1-usage.md)
+
+## 🌐 GitHub Pages
+
+This project ships a GitHub Pages landing page in the `docs/` folder. To enable it:
+
+1. Go to **Settings → Pages**.
+2. Set **Source** to `Deploy from a branch`.
+3. Select the `main` branch and `/docs` folder, then save.
